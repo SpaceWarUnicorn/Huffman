@@ -1,7 +1,7 @@
 import heapq
 
-text = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
-message = 'abcdef'
+text = 'aaaaabhwrolbbbbbbbbcc! ccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
+message = 'hello world!'
 
 def main():
     text2 = list(text)
@@ -14,8 +14,20 @@ def main():
     print('\nDictionary')
     print (Code)
     enc = encode(Code)
-    print('\nTranslated message')
+    print('\nCompressed message')
     print(enc)
+    deco= decoding(enc, Code)
+    print('\nDecompressed message\n'+deco)
+
+def decoding(enc, Code):
+    bits = ''
+    msj = ''
+    for bit in enc:
+        bits += bit
+        if([ key for key,val in Code.items() if val == bits] != []):
+            msj += str([ key for key,val in Code.items() if val == bits][0])
+            bits=''
+    return msj
 
 def encode(Code):
     return ''.join([ Code[letter] for letter in message])
@@ -27,7 +39,7 @@ def creatCode(Tree):
 
 def mapTree(Tree, code, binary):
     if(len(Tree) == 1):
-        freq,label = Tree[0]
+        freq, label = Tree[0]
         code[label] = binary
     else:
         value, childL, childR = Tree
