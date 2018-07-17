@@ -1,18 +1,24 @@
 import heapq
 
 text = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
+message = 'abcdef'
 
 def main():
     text2 = list(text)
     listletter = freq(text2)
     preTree = ordenarLetras(listletter)
-    print('\n')
     Tree = makeTree(preTree)
+    print('Tree')
     print(Tree)
-    print('\n')
     Code = creatCode(Tree)
+    print('\nDictionary')
     print (Code)
-    #codifica(codigo,listaLetra)
+    enc = encode(Code)
+    print('\nTranslated message')
+    print(enc)
+
+def encode(Code):
+    return ''.join([ Code[letter] for letter in message])
 
 def creatCode(Tree):
     code = dict()
@@ -20,8 +26,7 @@ def creatCode(Tree):
     return code
 
 def mapTree(Tree, code, binary):
-    print(len(Tree), Tree)
-    if(len(Tree)==1):
+    if(len(Tree) == 1):
         freq,label = Tree[0]
         code[label] = binary
     else:
@@ -50,10 +55,7 @@ def makeTree(tree):
 
         heapq.heappush(heap, node)
 
-
     return heapq.heappop(heap)
-
-
 
 def ordenarLetras(listLetter):
     listLet = list(set(listLetter))
@@ -71,3 +73,4 @@ def freq(text2):
 
 if __name__ == "__main__":
     main()
+''' references : https://www.geeksforgeeks.org/greedy-algorithms-set-3-huffman-coding/ '''
