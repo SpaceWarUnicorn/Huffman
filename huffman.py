@@ -3,25 +3,40 @@ import heapq
 text = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
 
 def main():
-    cosas2 = list(text)
-    listletter = freq(cosas2)
+    text2 = list(text)
+    listletter = freq(text2)
     preTree = ordenarLetras(listletter)
-    #arbol = binLet(listaLetra)
+    print('\n')
     Tree = makeTree(preTree)
+    print(Tree)
+    print('\n')
+    Code = creatCode(Tree)
+    print (Code)
     #codifica(codigo,listaLetra)
 
-"""def codifica(codigo, listaLetra):
-    newStr = ''
-    for v in cosas:
-        newStr +=v
+def creatCode(Tree):
+    code = dict()
+    mapTree(Tree, code, '')
+    return code
 
-    print(str(codigo) +" "+ str(listaLetra))"""
+def mapTree(Tree, code, binary):
+    print(len(Tree), Tree)
+    if(len(Tree)==1):
+        freq,label = Tree[0]
+        code[label] = binary
+    else:
+        value, childL, childR = Tree
+
+        mapTree(childL, code, binary +"1")
+        mapTree(childR, code, binary +"0")
+
+    return code
 
 def makeTree(tree):
 
     heap=[]
-    for leave in tree:
-        heapq.heappush(heap, [leave])
+    for leaf in tree:
+        heapq.heappush(heap, [leaf])
 
     while len(heap) > 1:
         childL = heapq.heappop(heap)
@@ -30,7 +45,6 @@ def makeTree(tree):
         freqR, labelR = childR[0]
 
         freq = freqL + freqR
-
         label = ''.join(sorted(labelL + labelR))
         node = ((freq, label), childL, childR)
 
@@ -47,22 +61,13 @@ def ordenarLetras(listLetter):
     print ("ordenada \n"+str(listLet) + "\n")
     return listLet
 
-"""def binLet(listaLetra):
-    binVal = []
-    for index in enumerate(listaLetra, start=0):
-        print(index[1])
-        binVal.append(bin(index[0]))
-[('f', 45),('e', 16),('d', 13),('c', 12),('b', 9),('a', 5)]
-
-    print("Codigo \n" + str(zip(listaLetra, binVal)) + "\n" )
-    return binVal"""
 
 def freq(text2):
     freqLet = []
     for w in text2:
         freqLet.append(text2.count(w))
     print("Pares\n" + str(zip(text2, freqLet))+ "\n")
-    return zip(freqLet,cosas2)
+    return zip(freqLet,text2)
 
 if __name__ == "__main__":
     main()
