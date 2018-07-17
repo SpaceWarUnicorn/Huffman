@@ -1,10 +1,9 @@
 import heapq
 
-text = 'aaaaabhwrolbbbbbbbbcc! ccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
-message = 'hello world!'
 
 def main():
-    text2 = list(text)
+    message = extractText()
+    text2 = list(message)
     listletter = freq(text2)
     preTree = ordenarLetras(listletter)
     Tree = makeTree(preTree)
@@ -13,11 +12,23 @@ def main():
     Code = creatCode(Tree)
     print('\nDictionary')
     print (Code)
-    enc = encode(Code)
+    enc = encode(Code, message)
     print('\nCompressed message')
     print(enc)
     deco= decoding(enc, Code)
+    createDecode(deco)
     print('\nDecompressed message\n'+deco)
+
+def createDecode(deco):
+    with open('decoding.txt',"w") as f:
+        data = f.write(deco)
+    print 'success'
+
+def extractText():
+    with open('text.txt') as f:
+        data = f.read()
+    print data
+    return str(data)
 
 def decoding(enc, Code):
     bits = ''
@@ -29,7 +40,7 @@ def decoding(enc, Code):
             bits=''
     return msj
 
-def encode(Code):
+def encode(Code, message):
     return ''.join([ Code[letter] for letter in message])
 
 def creatCode(Tree):
