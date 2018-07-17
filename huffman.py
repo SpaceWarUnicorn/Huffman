@@ -1,14 +1,13 @@
 import heapq
 
-cosas = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
+text = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
 
 def main():
-    cosas2 = list(cosas)
-    print (cosas2)
-    listaLetras = freq(cosas2)
-    arbol = ordenarLetras(listaLetras)
+    cosas2 = list(text)
+    listletter = freq(cosas2)
+    preTree = ordenarLetras(listletter)
     #arbol = binLet(listaLetra)
-    makeTree(arbol)
+    Tree = makeTree(preTree)
     #codifica(codigo,listaLetra)
 
 """def codifica(codigo, listaLetra):
@@ -18,11 +17,11 @@ def main():
 
     print(str(codigo) +" "+ str(listaLetra))"""
 
-def makeTree(arbol):
+def makeTree(tree):
 
     heap=[]
-    for v in arbol:
-        heapq.heappush(heap, [v])
+    for leave in tree:
+        heapq.heappush(heap, [leave])
 
     while len(heap) > 1:
         childL = heapq.heappop(heap)
@@ -36,13 +35,15 @@ def makeTree(arbol):
         node = ((freq, label), childL, childR)
 
         heapq.heappush(heap, node)
-    print('Arbol \n' + str(heapq.heappop(heap)) + '\n')
+
+
+    return heapq.heappop(heap)
 
 
 
-def ordenarLetras(listaLetras):
-    listLet = list(set(listaLetras))
-    listLet.sort(key=lambda letra: letra[0], reverse=True)
+def ordenarLetras(listLetter):
+    listLet = list(set(listLetter))
+    listLet.sort(key=lambda letter: letter[0], reverse=True)
     print ("ordenada \n"+str(listLet) + "\n")
     return listLet
 
@@ -56,12 +57,12 @@ def ordenarLetras(listaLetras):
     print("Codigo \n" + str(zip(listaLetra, binVal)) + "\n" )
     return binVal"""
 
-def freq(cosas2):
-    frecuenciaLet = []
-    for w in cosas2:
-        frecuenciaLet.append(cosas2.count(w))
-    print("Pares\n" + str(zip(cosas2, frecuenciaLet))+ "\n")
-    return zip(frecuenciaLet,cosas2)
+def freq(text2):
+    freqLet = []
+    for w in text2:
+        freqLet.append(text2.count(w))
+    print("Pares\n" + str(zip(text2, freqLet))+ "\n")
+    return zip(freqLet,cosas2)
 
 if __name__ == "__main__":
     main()
