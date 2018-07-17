@@ -36,7 +36,7 @@ def decoding(enc, Code):
     for bit in enc:
         bits += bit
         if([ key for key,val in Code.items() if val == bits] != []):
-            msj += str([ key for key,val in Code.items() if val == bits][0])
+            msj += ''.join([ key for key,val in Code.items() if val == bits])
             bits=''
     return msj
 
